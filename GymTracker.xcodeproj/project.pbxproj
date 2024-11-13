@@ -8,29 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		93BCCD7B2CE40C5100BD214D /* GymTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BCCD7A2CE40C5100BD214D /* GymTrackerApp.swift */; };
-		93BCCD7D2CE40C5100BD214D /* ProgramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BCCD7C2CE40C5100BD214D /* ProgramView.swift */; };
 		93BCCD7F2CE40C5200BD214D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93BCCD7E2CE40C5200BD214D /* Assets.xcassets */; };
 		93BCCD822CE40C5200BD214D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93BCCD812CE40C5200BD214D /* Preview Assets.xcassets */; };
 		93DE8F792CE41BC400B233CD /* Program.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DE8F782CE41BC400B233CD /* Program.swift */; };
-		93DE8F7B2CE41F0700B233CD /* NewWorkoutDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DE8F7A2CE41F0700B233CD /* NewWorkoutDayView.swift */; };
-		93DE8F7D2CE43AB800B233CD /* WorkoutDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DE8F7C2CE43AB800B233CD /* WorkoutDayView.swift */; };
-		93DE8F7F2CE442E300B233CD /* AddExerciseToWorkingDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DE8F7E2CE442E300B233CD /* AddExerciseToWorkingDayView.swift */; };
-		93DE8F812CE4482300B233CD /* AddExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DE8F802CE4482300B233CD /* AddExerciseView.swift */; };
-		93DE8F832CE4497F00B233CD /* ListAllExercisesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DE8F822CE4497F00B233CD /* ListAllExercisesView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		93BCCD772CE40C5100BD214D /* GymTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GymTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93BCCD7A2CE40C5100BD214D /* GymTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymTrackerApp.swift; sourceTree = "<group>"; };
-		93BCCD7C2CE40C5100BD214D /* ProgramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramView.swift; sourceTree = "<group>"; };
 		93BCCD7E2CE40C5200BD214D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		93BCCD812CE40C5200BD214D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		93DE8F782CE41BC400B233CD /* Program.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Program.swift; sourceTree = "<group>"; };
-		93DE8F7A2CE41F0700B233CD /* NewWorkoutDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWorkoutDayView.swift; sourceTree = "<group>"; };
-		93DE8F7C2CE43AB800B233CD /* WorkoutDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDayView.swift; sourceTree = "<group>"; };
-		93DE8F7E2CE442E300B233CD /* AddExerciseToWorkingDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseToWorkingDayView.swift; sourceTree = "<group>"; };
-		93DE8F802CE4482300B233CD /* AddExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseView.swift; sourceTree = "<group>"; };
-		93DE8F822CE4497F00B233CD /* ListAllExercisesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListAllExercisesView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -41,10 +29,23 @@
 			);
 			target = 93BCCD762CE40C5100BD214D /* GymTracker */;
 		};
+		93DE8F912CE4FDAF00B233CD /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				AddExerciseToWorkingDayView.swift,
+				AddExerciseView.swift,
+				ListAllExercisesView.swift,
+				NewWorkoutDayView.swift,
+				ProgramView.swift,
+				WorkoutDayView.swift,
+			);
+			target = 93BCCD762CE40C5100BD214D /* GymTracker */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		93DE8F8A2CE4795E00B233CD /* Tracker */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (93DE8F8B2CE4796700B233CD /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Tracker; sourceTree = "<group>"; };
+		93DE8F902CE4FDA400B233CD /* Program */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (93DE8F912CE4FDAF00B233CD /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Program; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,15 +78,10 @@
 		93BCCD792CE40C5100BD214D /* GymTracker */ = {
 			isa = PBXGroup;
 			children = (
-				93DE8F8A2CE4795E00B233CD /* Tracker */,
 				93DE8F782CE41BC400B233CD /* Program.swift */,
 				93BCCD7A2CE40C5100BD214D /* GymTrackerApp.swift */,
-				93BCCD7C2CE40C5100BD214D /* ProgramView.swift */,
-				93DE8F7A2CE41F0700B233CD /* NewWorkoutDayView.swift */,
-				93DE8F7C2CE43AB800B233CD /* WorkoutDayView.swift */,
-				93DE8F7E2CE442E300B233CD /* AddExerciseToWorkingDayView.swift */,
-				93DE8F802CE4482300B233CD /* AddExerciseView.swift */,
-				93DE8F822CE4497F00B233CD /* ListAllExercisesView.swift */,
+				93DE8F902CE4FDA400B233CD /* Program */,
+				93DE8F8A2CE4795E00B233CD /* Tracker */,
 				93BCCD7E2CE40C5200BD214D /* Assets.xcassets */,
 				93BCCD802CE40C5200BD214D /* Preview Content */,
 			);
@@ -170,14 +166,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93DE8F832CE4497F00B233CD /* ListAllExercisesView.swift in Sources */,
-				93DE8F7F2CE442E300B233CD /* AddExerciseToWorkingDayView.swift in Sources */,
-				93DE8F7B2CE41F0700B233CD /* NewWorkoutDayView.swift in Sources */,
 				93DE8F792CE41BC400B233CD /* Program.swift in Sources */,
-				93DE8F812CE4482300B233CD /* AddExerciseView.swift in Sources */,
-				93BCCD7D2CE40C5100BD214D /* ProgramView.swift in Sources */,
 				93BCCD7B2CE40C5100BD214D /* GymTrackerApp.swift in Sources */,
-				93DE8F7D2CE43AB800B233CD /* WorkoutDayView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

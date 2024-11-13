@@ -10,7 +10,7 @@ import SwiftUI
 struct TrackerView: View {
     var body: some View {
         NavigationStack {
-            Group {
+            VStack {
                 Spacer()
                 Button("Start Program") {
                 
@@ -27,7 +27,8 @@ struct TrackerView: View {
                 NavigationLink {
                     ProgramView()
                 } label: {
-                    Image(systemName: "text.document.fill")
+                    Image(systemName: "text.document")
+                    
                 }
                 
             }
