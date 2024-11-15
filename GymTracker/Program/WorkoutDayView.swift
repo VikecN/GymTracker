@@ -23,8 +23,11 @@ struct WorkoutDayView: View {
             NavigationStack {
                 Group {
                     if workoutDay.exercises.isEmpty {
-                        ContentUnavailableView("Add Exercises", systemImage: "dumbbell.fill")
-
+                        ContentUnavailableView {
+                            Label("No Exercises", systemImage: "dumbbell.fill")
+                        } description: {
+                            Text("Click on the 'Add Exercise'")
+                        }
                     } else {
                         List {
                             ForEach(workoutDay.exercises.sorted { $0.order < $1.order }) { exercise in

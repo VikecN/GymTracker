@@ -24,7 +24,7 @@ class WorkoutDay {
 }
 
 @Model
-class ConfigureWorkoutDay {
+class ConfigureWorkoutDay: Identifiable {
     var exercise: Exercise
     var sets: Int
     var reps: Int
@@ -44,5 +44,20 @@ class Exercise {
     
     init(name: String) {
         self.name = name
+    }
+}
+
+
+@Model
+class WorkoutTracker {
+    var startDateTime: Date = Date.now
+    var endDateTime: Date?
+    var workoutDay: WorkoutDay
+    var isCompleted: Bool = false
+    
+    init(workoutDay: WorkoutDay, endDateTime: Date, isCompleted: Bool) {
+        self.workoutDay = workoutDay
+        self.endDateTime = endDateTime
+        self.isCompleted = isCompleted
     }
 }

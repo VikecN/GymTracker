@@ -18,7 +18,11 @@ struct ProgramView: View {
         NavigationStack {
             Group {
                 if workouts.isEmpty {
-                    ContentUnavailableView("Add Your working sessions.", systemImage: "figure.run.square.stack.fill")
+                    ContentUnavailableView {
+                        Label("Add Your workout sessions", systemImage: "plus.square.on.square")
+                    } description: {
+                        Text("Add days to the icon on the top right corner, but first go to 'View Exercises'")
+                    }
                 } else {
                     List {
                         ForEach(workouts) { workout in
@@ -48,15 +52,16 @@ struct ProgramView: View {
             .listStyle(.plain)
             .padding()
             .navigationTitle("Program")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 Button{
                     addNewWorkingDay = true
                 } label: {
-                    Image(systemName: "plus.circle.fill")
+                    Image(systemName: "plus.square.on.square")
                 }
             }
             .sheet(isPresented: $addNewWorkingDay) {
-                NewWorkoutDayView()
+                NewWorkoutDayView(numberOfWorkoutDays: workouts.count)
                     .presentationDetents([.medium])
             }
             NavigationLink {
@@ -65,6 +70,7 @@ struct ProgramView: View {
                     .navigationBarTitleDisplayMode(.inline)
             } label: {
                 Text("View Exercises")
+                Image(systemName: "square.grid.3x3")
             }
         }
         

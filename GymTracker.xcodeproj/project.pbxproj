@@ -25,6 +25,7 @@
 		93DE8F8B2CE4796700B233CD /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				StartWorkoutView.swift,
 				TrackerView.swift,
 			);
 			target = 93BCCD762CE40C5100BD214D /* GymTracker */;

@@ -24,12 +24,21 @@ struct AddExerciseView: View {
                     modelContext.insert(exercise)
                     dismiss()
                 }.frame(maxWidth: .infinity)
+                    .disabled(exerciseName.isEmpty)
             }
             .navigationTitle("Add Exercise")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
+                }
+            }
         }
 
     }
+
 }
 
 #Preview {

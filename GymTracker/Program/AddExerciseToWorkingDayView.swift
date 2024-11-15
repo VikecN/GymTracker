@@ -11,6 +11,7 @@ import SwiftData
 struct AddExerciseToWorkingDayView: View {
     
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
     
     @Query private var exercises: [Exercise]
     
@@ -23,30 +24,38 @@ struct AddExerciseToWorkingDayView: View {
 
     
     var body: some View {
-        Form {
-            Picker("Exercise", selection: $exercise) {
-                Text("Select Exercise").tag(nil as Exercise?)
+        NavigationStack {
+            Form {
+                Picker("Exercise", selection: $exercise) {
+                    Text("Select Exercise").tag(nil as Exercise?)
+                    
+                    ForEach(exercises, id: \.id) { exercise in
+                        Text(exercise.name).tag(exercise as Exercise?)
+                    }
+                }
                 
-                ForEach(exercises, id: \.id) { exercise in
-                    Text(exercise.name).tag(exercise as Exercise?)
+                TextField("Sets", text: $sets)
+                    .keyboardType(.numberPad)
+                TextField("Reps", text: $reps)
+                    .keyboardType(.numberPad)
+                
+                
+                Button("Add Exercise") {
+                    addExerciseToWorkoutDay()
+                }.frame(maxWidth: .infinity)
+                .disabled(exercise == nil || sets.isEmpty || reps.isEmpty)
+            }
+            .navigationTitle("Add Workount Day")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
                 }
             }
-            
-            TextField("Sets", text: $sets)
-                .keyboardType(.numberPad)
-            TextField("Reps", text: $reps)
-                .keyboardType(.numberPad)
-            
-            Button(action: addExerciseToWorkoutDay) {
-                            Text("Add Exercise")
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(8)
-                        }
-                        .disabled(exercise == nil || sets.isEmpty || reps.isEmpty)
         }
+
         
     }
     private func addExerciseToWorkoutDay() {

@@ -18,7 +18,11 @@ struct ListAllExercisesView: View {
         NavigationStack {
             Group {
                 if exercises.isEmpty {
-                    ContentUnavailableView("Add your first exercise", systemImage: "figure.strengthtraining.traditional")
+                    ContentUnavailableView {
+                        Label("No Exercises", systemImage: "figure.run.square.stack.fill")
+                    } description: {
+                        Text("Add exercises on the icon, top rigth corner. ")
+                    }
                 }else {
                     List {
                         ForEach(exercises) { exercise in
@@ -31,7 +35,7 @@ struct ListAllExercisesView: View {
                 Button {
                     showAddExercise = true
                 } label: {
-                    Image(systemName: "plus.circle.fill")
+                    Image(systemName: "figure.run.square.stack")
                 }
             }
         }
