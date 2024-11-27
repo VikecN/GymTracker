@@ -16,20 +16,16 @@ struct NewWorkoutDayView: View {
     @Environment(\.dismiss) var dismiss
     @State private var dayNumber = 1
     @State private var workoutPlan = ""
-    @State private var isRestDay = false
     var body: some View {
         NavigationStack {
             Form {
                 
                 TextField("Workout Name", text: $workoutPlan)
                 
-                Toggle("Rest Day", isOn: $isRestDay)
-                
                 Button("Add Day"){
                     let newDay = WorkoutDay(
                                     dayNumber: (numberOfWorkoutDays + dayNumber),
                                     workoutPlan: workoutPlan,
-                                    isRestDay: isRestDay,
                                     exercises: [])
                     modelContext.insert(newDay)
                     dismiss()
@@ -37,7 +33,7 @@ struct NewWorkoutDayView: View {
                 .frame(maxWidth: .infinity)
                 .buttonStyle(.borderedProminent)
                 .padding()
-                .disabled(workoutPlan.isEmpty && !isRestDay)
+                .disabled(workoutPlan.isEmpty)
                 .navigationTitle("New Workout Day")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {

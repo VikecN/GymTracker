@@ -25,7 +25,8 @@
 		93DE8F8B2CE4796700B233CD /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				StartWorkoutView.swift,
+				StartStopTrackingView.swift,
+				StartTrackingView.swift,
 				TrackerView.swift,
 			);
 			target = 93BCCD762CE40C5100BD214D /* GymTracker */;
@@ -42,11 +43,28 @@
 			);
 			target = 93BCCD762CE40C5100BD214D /* GymTracker */;
 		};
+		93DE8F9B2CE7197000B233CD /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				CustomComponents.swift,
+			);
+			target = 93BCCD762CE40C5100BD214D /* GymTracker */;
+		};
+		93FD264B2CF6A6F900A94B92 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				StatisticeSessionView.swift,
+				StatisticsView.swift,
+			);
+			target = 93BCCD762CE40C5100BD214D /* GymTracker */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		93DE8F8A2CE4795E00B233CD /* Tracker */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (93DE8F8B2CE4796700B233CD /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Tracker; sourceTree = "<group>"; };
 		93DE8F902CE4FDA400B233CD /* Program */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (93DE8F912CE4FDAF00B233CD /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Program; sourceTree = "<group>"; };
+		93DE8F982CE7193900B233CD /* Utilities */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (93DE8F9B2CE7197000B233CD /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Utilities; sourceTree = "<group>"; };
+		93FD26482CF6A6DF00A94B92 /* Statistics */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (93FD264B2CF6A6F900A94B92 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Statistics; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +97,8 @@
 		93BCCD792CE40C5100BD214D /* GymTracker */ = {
 			isa = PBXGroup;
 			children = (
+				93FD26482CF6A6DF00A94B92 /* Statistics */,
+				93DE8F982CE7193900B233CD /* Utilities */,
 				93DE8F782CE41BC400B233CD /* Program.swift */,
 				93BCCD7A2CE40C5100BD214D /* GymTrackerApp.swift */,
 				93DE8F902CE4FDA400B233CD /* Program */,

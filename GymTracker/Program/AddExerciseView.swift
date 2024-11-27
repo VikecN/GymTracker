@@ -22,6 +22,7 @@ struct AddExerciseView: View {
                 Button("Add Exercise") {
                     let exercise = Exercise(name: exerciseName)
                     modelContext.insert(exercise)
+                    try! modelContext.save()
                     dismiss()
                 }.frame(maxWidth: .infinity)
                     .disabled(exerciseName.isEmpty)

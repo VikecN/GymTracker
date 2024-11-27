@@ -21,14 +21,6 @@ struct WorkoutDayView: View {
         VStack {
             Text(workoutDay.workoutPlan)
             NavigationStack {
-                Group {
-                    if workoutDay.exercises.isEmpty {
-                        ContentUnavailableView {
-                            Label("No Exercises", systemImage: "dumbbell.fill")
-                        } description: {
-                            Text("Click on the 'Add Exercise'")
-                        }
-                    } else {
                         List {
                             ForEach(workoutDay.exercises.sorted { $0.order < $1.order }) { exercise in
                                 HStack {
@@ -41,11 +33,18 @@ struct WorkoutDayView: View {
                             .onDelete { IndexSet in
                                 IndexSet.forEach {
                                     modelContext.delete(workoutDay.exercises[$0]) }
+                                    try! modelContext.save()
                             }
 
 
-                        }
-                    }
+                        }.overlay {
+                            if workoutDay.exercises.isEmpty {
+                                ContentUnavailableView {
+                                    Label("No Exercises", systemImage: "dumbbell.fill")
+                                } description: {
+                                    Text("Click on the 'Add Exercise'")
+                                }
+                            }
                 }
                 .toolbar {
                     Button {
@@ -67,5 +66,5 @@ struct WorkoutDayView: View {
 }
 
 #Preview {
-    WorkoutDayView(workoutDay: WorkoutDay(dayNumber: 1, workoutPlan: "Chest & Biceps", isRestDay: false, exercises: []))
+    WorkoutDayView(workoutDay: WorkoutDay(dayNumber: 1, workoutPlan: "Chest & Biceps", exercises: []))
 }

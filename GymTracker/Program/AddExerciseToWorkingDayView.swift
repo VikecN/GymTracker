@@ -83,5 +83,5 @@ struct AddExerciseToWorkingDayView: View {
 }
 
 #Preview {
-    AddExerciseToWorkingDayView(workoutDay: WorkoutDay(dayNumber: 1, workoutPlan: "Chest & Biceps", isRestDay: false, exercises: []))
+    AddExerciseToWorkingDayView(workoutDay: WorkoutDay(dayNumber: 1, workoutPlan: "Chest & Biceps", exercises: []))
 }

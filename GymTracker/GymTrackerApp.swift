@@ -11,11 +11,24 @@ import SwiftData
 @main
 struct GymTrackerApp: App {
     
+    let modelConatiner: ModelContainer = {
+        let schema = Schema([WorkoutDay.self, ConfigureWorkoutDay.self, Exercise.self, WorkoutTracker.self])
+        let configuration = ModelConfiguration("GymTracker")
+        
+        let container: ModelContainer
+        do {
+            container = try ModelContainer(for: schema, configurations: configuration)
+        } catch {
+            fatalError("Container not initialized!")
+        }
+        return container
+    }()
+    
     var body: some Scene {
         WindowGroup {
             TrackerView()
         }
-        .modelContainer(for: WorkoutDay.self)
+        .modelContainer(modelConatiner)
     }
     
     init() {

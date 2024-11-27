@@ -12,13 +12,11 @@ import Foundation
 class WorkoutDay {
     var dayNumber: Int
     var workoutPlan: String
-    var isRestDay: Bool = false
     var exercises: [ConfigureWorkoutDay] = []
     
-    init(dayNumber: Int, workoutPlan: String, isRestDay: Bool, exercises: [ConfigureWorkoutDay]) {
+    init(dayNumber: Int, workoutPlan: String, exercises: [ConfigureWorkoutDay]) {
         self.dayNumber = dayNumber
         self.workoutPlan = workoutPlan
-        self.isRestDay = isRestDay
         self.exercises = exercises
     }
 }
@@ -40,7 +38,7 @@ class ConfigureWorkoutDay: Identifiable {
 
 @Model
 class Exercise {
-    var name: String
+    @Attribute(.unique) var name: String
     
     init(name: String) {
         self.name = name
@@ -50,14 +48,23 @@ class Exercise {
 
 @Model
 class WorkoutTracker {
+    var sessionID: UUID = UUID()
     var startDateTime: Date = Date.now
-    var endDateTime: Date?
+    var endDateTime: Date? = nil
+    let duration: TimeInterval? = nil
     var workoutDay: WorkoutDay
     var isCompleted: Bool = false
     
-    init(workoutDay: WorkoutDay, endDateTime: Date, isCompleted: Bool) {
+    init(workoutDay: WorkoutDay, endDateTime: Date?, isCompleted: Bool, duration: TimeInterval) {
         self.workoutDay = workoutDay
         self.endDateTime = endDateTime
         self.isCompleted = isCompleted
+        self.duration = duration
     }
+    
+    init(workoutDay: WorkoutDay, isCompleted: Bool) {
+        self.workoutDay = workoutDay
+        self.isCompleted = isCompleted
+    }
+    
 }

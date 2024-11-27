@@ -5,6 +5,7 @@
 //  Created by Viktor Nedanovski on 11/13/24.
 //
 
+
 import SwiftUI
 import SwiftData
 
@@ -12,32 +13,51 @@ struct TrackerView: View {
     
     @Environment(\.modelContext) private var modelContext
     
-    @State private var lastWorkout: WorkoutTracker?
-    @State private var nextWorkout: WorkoutDay?
+    @Query(descriptor) private var lastWorkout: [WorkoutTracker] = []
+    
+    @State private var fetchNextExercises: WorkoutDay? = nil
+    
+    static var descriptor: FetchDescriptor<WorkoutTracker> = {
+        
+        var descriptor = FetchDescriptor<WorkoutTracker>(sortBy: [SortDescriptor(\.startDateTime, order: .reverse)])
+        descriptor.fetchLimit = 1
+        return descriptor
+    }()
     
     var body: some View {
         NavigationStack {
             VStack {
-                VStack {
-                    if ((nextWorkout?.exercises.isEmpty) != false) {
-                        ContentUnavailableView {
-                            Label("Workout Unavailable", systemImage: "exclamationmark.bubble")
-                        } description: {
-                            Text("Add days to the program. Go to the 'Program'")
-                        }
-                        
-                    } else {
-                        Text("Today's for workout:")
-                        Text(nextWorkout?.workoutPlan ?? "No Next")
-                        
-                        List(nextWorkout?.exercises ?? []) { workout in
-                            Text(workout.exercise.name)
+                if (fetchNextExercises != nil) {
+                    Text("Today's for workout:")
+                    Text(fetchNextExercises!.workoutPlan)
+                    
+                    if (fetchNextExercises != nil && !fetchNextExercises!.exercises.isEmpty) {
+                        List(fetchNextExercises!.exercises) { exercise in
+                            Text(exercise.exercise.name)
                         }
                     }
+
+                
+                    Spacer()
+                    NavigationLink {
+                        StartTrackingView(workoutSession: fetchNextExercises!)
+                    }label: {
+                        if !lastWorkout.isEmpty && lastWorkout.first?.isCompleted == false {
+                            ButtonTemplate(txtColor: Color.white, bgColor: Color.orange, text: "Continue Tracking")
+                        } else {
+                            ButtonTemplate(txtColor: Color.white, text: "Start Tracking")
+                        }
+                        
+                    }
+                } else {
+                    ContentUnavailableView {
+                        Label("Workout Unavailable", systemImage: "exclamationmark.bubble")
+                    } description: {
+                        Text("Add days to the program. Go to the 'Program'")
+                    }
                 }
- 
-                Spacer()
-                StartWorkoutView()
+
+                    
             }
             .navigationTitle("Gym Tracker")
             .navigationBarTitleDisplayMode(.inline)
@@ -50,62 +70,50 @@ struct TrackerView: View {
                 }
                 
             }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    NavigationLink {
+                        StatisticsView()
+                    } label: {
+                        Text("Statistics")
+                        
+                    }
+                }
+            }
+            .task {
+                await loadExercises()
+            }
             
-        }.task {
-            print("Loading... Last Workout")
-            await fetchLastWorkout()
-            
-            print("Loading... Next Workout")
-            await fetchNextWorkout()
         }
 
     }
     
-    func fetchLastWorkout() async {
-        do {
-            let request = FetchDescriptor<WorkoutTracker>(
-                predicate: nil, sortBy: [SortDescriptor(\.id, order: .reverse)]
-            )
-            
-            let result = try modelContext.fetch(request)
-            
-            if result == [] {
-                lastWorkout = nil
-            } else {
-                lastWorkout = result.first
+    func loadExercises() async {
+        print("Fetch Next Exercises")
+        
+        var lastWorkoutDayNumber = 1
+        let numberOfDays = try! modelContext.fetchCount(FetchDescriptor<WorkoutDay>())
+        
+        
+        if let session = lastWorkout.first {
+            if (!(numberOfDays == session.workoutDay.dayNumber)) {
+                lastWorkoutDayNumber = session.workoutDay.dayNumber + 1
             }
             
-        } catch {
-            print("Failed to fetch last workout: \(error)")
         }
-    }
-    
-    func fetchNextWorkout() async {
-        do {
-                // Fetch all workout days in ascending order of day number
-                let workoutDayRequest = FetchDescriptor<WorkoutDay>(
-                    sortBy: [SortDescriptor(\.dayNumber, order: .forward)]
-                )
-                let allWorkoutDays = try modelContext.fetch(workoutDayRequest)
-                
-                guard !allWorkoutDays.isEmpty else {
-                    print("No workout days defined.")
-                    nextWorkout = nil
-                    return
-                }
-                
-                // Determine the next workout day
-                if let lastDayNumber = lastWorkout?.workoutDay.dayNumber {
-                    if let currentIndex = allWorkoutDays.firstIndex(where: { $0.dayNumber == lastDayNumber }) {
-                        let nextIndex = (currentIndex + 1) % allWorkoutDays.count
-                        nextWorkout = allWorkoutDays[nextIndex]
-                    }
-                } else {
-                    nextWorkout = allWorkoutDays.first
-                }
-            } catch {
-                print("Failed to fetch next workout: \(error)")
-            }
+        
+        
+        print(lastWorkoutDayNumber)
+        
+        let predicate = #Predicate<WorkoutDay> {
+            $0.dayNumber == lastWorkoutDayNumber
+        }
+        
+        var descriptor = FetchDescriptor<WorkoutDay>(predicate: predicate, sortBy: [SortDescriptor(\.dayNumber, order: .reverse)])
+        descriptor.fetchLimit = 1
+        
+        fetchNextExercises = try! modelContext.fetch(descriptor).first
+        
     }
     
 }
