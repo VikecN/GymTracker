@@ -16,7 +16,9 @@ struct ButtonTemplate: View {
     
     var body: some View {
         HStack {
-            Image(systemName: iconName)
+            if !iconName.isEmpty {
+                Image(systemName: iconName)
+            }
             Text(text)
         }
         .foregroundStyle(txtColor)

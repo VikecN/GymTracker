@@ -53,7 +53,6 @@ struct WorkoutDayView: View {
                         Text("Add Exercise")
                     }
                 }
-                .padding()
             }
             .sheet(isPresented: $addExercise) {
                 AddExerciseToWorkingDayView(workoutDay: workoutDay).presentationDetents([.medium])

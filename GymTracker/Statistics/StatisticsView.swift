@@ -10,13 +10,25 @@ import SwiftData
 
 struct StatisticsView: View {
     
-    @Query var sessions: [WorkoutTracker]
+    @Query(descriptor()) var sessions: [WorkoutTracker]
+    
+    static private func descriptor() -> FetchDescriptor<WorkoutTracker> {
+        var descriptor = FetchDescriptor<WorkoutTracker>(sortBy: [SortDescriptor(\.startDateTime, order: .reverse)])
+        descriptor.fetchLimit = 3
+        
+        return descriptor
+    }
     
     var body: some View {
+        Text("Last 3 Sessions")
         List {
-            
-            ForEach(Array(sessions.enumerated()), id: \.element.id) { index, session in
-                StatisticeSessionView(session: session, counter: index)
+            ForEach(sessions) { session in
+                StatisticeSessionView(session: session)
+            }
+            NavigationLink {
+                
+            } label: {
+                Text("View All")
             }
         }
     }

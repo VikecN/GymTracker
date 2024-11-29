@@ -38,6 +38,7 @@ class ConfigureWorkoutDay: Identifiable {
 
 @Model
 class Exercise {
+    var id: UUID = UUID()
     @Attribute(.unique) var name: String
     
     init(name: String) {
@@ -51,7 +52,7 @@ class WorkoutTracker {
     var sessionID: UUID = UUID()
     var startDateTime: Date = Date.now
     var endDateTime: Date? = nil
-    let duration: TimeInterval? = nil
+    var duration: TimeInterval? = nil
     var workoutDay: WorkoutDay
     var isCompleted: Bool = false
     
@@ -67,4 +68,22 @@ class WorkoutTracker {
         self.isCompleted = isCompleted
     }
     
+}
+
+@Model
+class TrackingHistory {
+    var id: UUID = UUID()
+    var sessionID: UUID
+    @Relationship var exercise: Exercise
+    var set: Int
+    var reps: Int?
+    var weight: Float?
+    
+    init(sessionID: UUID, exercise: Exercise, set: Int, reps: Int, weight: Float) {
+        self.sessionID = sessionID
+        self.exercise = exercise
+        self.set = set
+        self.reps = reps
+        self.weight = weight
+    }
 }

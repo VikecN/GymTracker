@@ -21,6 +21,7 @@ struct TrackerView: View {
         
         var descriptor = FetchDescriptor<WorkoutTracker>(sortBy: [SortDescriptor(\.startDateTime, order: .reverse)])
         descriptor.fetchLimit = 1
+        
         return descriptor
     }()
     
@@ -45,7 +46,7 @@ struct TrackerView: View {
                         if !lastWorkout.isEmpty && lastWorkout.first?.isCompleted == false {
                             ButtonTemplate(txtColor: Color.white, bgColor: Color.orange, text: "Continue Tracking")
                         } else {
-                            ButtonTemplate(txtColor: Color.white, text: "Start Tracking")
+                            ButtonTemplate(txtColor: Color.white, text: "Start Tracking", iconName: "play")
                         }
                         
                     }
@@ -89,21 +90,17 @@ struct TrackerView: View {
     }
     
     func loadExercises() async {
-        print("Fetch Next Exercises")
         
         var lastWorkoutDayNumber = 1
         let numberOfDays = try! modelContext.fetchCount(FetchDescriptor<WorkoutDay>())
         
         
         if let session = lastWorkout.first {
-            if (!(numberOfDays == session.workoutDay.dayNumber)) {
+            if (!(numberOfDays == session.workoutDay.dayNumber) && (session.isCompleted == true)) {
                 lastWorkoutDayNumber = session.workoutDay.dayNumber + 1
             }
             
         }
-        
-        
-        print(lastWorkoutDayNumber)
         
         let predicate = #Predicate<WorkoutDay> {
             $0.dayNumber == lastWorkoutDayNumber

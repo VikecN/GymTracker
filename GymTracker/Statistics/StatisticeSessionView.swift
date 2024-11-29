@@ -10,14 +10,20 @@ import SwiftUI
 struct StatisticeSessionView: View {
     
     @State var session: WorkoutTracker
-    @State var counter: Int
     
     var body: some View {
-        HStack {
-            ColumnView(columnName: "No:", value: "\(counter)", type: "text")
-            ColumnView(columnName: "Workout", value: "\(session.workoutDay.workoutPlan)", type: "text")
-            ColumnView(columnName: "StartedOn", value: "\(session.startDateTime.ISO8601Format())", type: "date")
-            ColumnView(columnName: "Status", value: "\(session.isCompleted)", type: "toggle")
+        Grid(alignment: .leading) {
+            GridRow {
+                ColumnView(columnName: "Workout", value: "\(session.workoutDay.workoutPlan)", type: "text")
+                ColumnView(columnName: "Started", value: "\(session.startDateTime.ISO8601Format())", type: "date")
+                NavigationLink {
+                    WorkoutDayStatisticsView(session: session)
+                } label: {
+                    EmptyView()
+                }
+                .padding()
+            }
+
             
         }
     }
@@ -44,7 +50,7 @@ struct StatisticeSessionView: View {
         var body: some View {
             switch type {
             case "text":
-                VStack(alignment: .leading, spacing: 5) {
+                VStack(alignment: .leading) {
                     Text(columnName)
                         .font(.subheadline)
                         .foregroundColor(.gray)
@@ -53,6 +59,7 @@ struct StatisticeSessionView: View {
                         .lineLimit(2)
                         .truncationMode(.tail)
                 }
+                .frame(minHeight: 30, alignment: .top)
                 .padding(.vertical, 5)
                 
             case "toggle":
@@ -62,23 +69,9 @@ struct StatisticeSessionView: View {
                         .foregroundColor(.gray)
                     Toggle(isOn: $toggleValue) {
                         EmptyView()
-                    }
+                    }.disabled(true)
                 }
-                .padding(.vertical, 5)
-                
-            case "button":
-                VStack(alignment: .leading, spacing: 5) {
-                    Text(columnName)
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                    Button(action: {
-                        print("\(columnName) button tapped")
-                    }) {
-                        Text(value)
-                            .foregroundColor(.blue)
-                            .fontWeight(.bold)
-                    }
-                }
+                .frame(minHeight: 50, alignment: .top)
                 .padding(.vertical, 5)
                 
             case "date":
@@ -88,9 +81,10 @@ struct StatisticeSessionView: View {
                         .foregroundColor(.gray)
                     DatePicker(value, selection: $dateValue, displayedComponents: [.date])
                         .labelsHidden()
+                        .disabled(true)
                 }
+                .frame(minHeight: 50, alignment: .top)
                 .padding(.vertical, 5)
-                
             default:
                 EmptyView()
             }
